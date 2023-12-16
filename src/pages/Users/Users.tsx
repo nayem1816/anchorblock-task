@@ -8,7 +8,7 @@ import { LuUploadCloud } from "react-icons/lu";
 const Users = () => {
   const [page, setPage] = useState(1);
 
-  const { data, isLoading, isSuccess } = useGetAllUsersQuery(
+  const { data, isLoading, isSuccess } = useGetAllUsersQuery<any>(
     {
       page: page,
     },
@@ -20,9 +20,6 @@ const Users = () => {
   if (isLoading || !isSuccess) {
     return <h2>Loading...</h2>;
   }
-
-  console.log(data);
-
   return (
     <div className="max-w-6xl mx-auto px-4">
       <div className="flex justify-between mt-10 mb-6 items-center">
