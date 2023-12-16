@@ -33,7 +33,7 @@ const Signup = () => {
       setTimeout(() => {
         toast.success("Signup successfully!");
       }, 500);
-      navigate("/");
+      navigate("/users");
     } else {
       toast.error("Signup failed!");
     }

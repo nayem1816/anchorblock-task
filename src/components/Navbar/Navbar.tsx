@@ -12,8 +12,6 @@ const Navbar = () => {
     setActive(location?.pathname);
   }, [location.pathname]);
 
-  console.log(active);
-
   return (
     <nav className="bg-[#6941C6]">
       <div className="max-w-6xl mx-auto px-4">
@@ -102,7 +100,7 @@ const Navbar = () => {
           <div className="md:hidden flex items-center">
             <button className="mobile-menu-button">
               <svg
-                className="w-6 h-6"
+                className="w-6 h-6 text-white"
                 xmlns="http://www.w3.org/2000/svg"
                 fill="none"
                 viewBox="0 0 24 24"

@@ -30,7 +30,7 @@ const Login = () => {
       setTimeout(() => {
         toast.success("Login successfully!");
       }, 500);
-      navigate("/");
+      navigate("/users");
     } else {
       toast.error("Login failed!");
     }
