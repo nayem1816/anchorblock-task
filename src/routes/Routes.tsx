@@ -4,6 +4,11 @@ import Main from "../layouts/Main";
 import UserRoute from "./UserRoute";
 import Login from "../pages/Login/Login";
 import Signup from "../pages/Signup/Signup";
+import Home from "../pages/Home/Home";
+import Users from "../pages/Users/Users";
+import Projects from "../pages/Projects/Projects";
+import Tasks from "../pages/Tasks/Tasks";
+import Reporting from "../pages/Reporting/Reporting";
 
 export const routes = createBrowserRouter([
   {
@@ -16,14 +21,30 @@ export const routes = createBrowserRouter([
     children: [
       {
         path: "/",
-        element: <h2>Home Page</h2>,
+        element: <Home />,
+      },
+      {
+        path: "/users",
+        element: <Users />,
+      },
+      {
+        path: "/projects",
+        element: <Projects />,
+      },
+      {
+        path: "/tasks",
+        element: <Tasks />,
+      },
+      {
+        path: "/reporting",
+        element: <Reporting />,
       },
     ],
   },
   {
     path: "/login",
     element: (
-      <UserRoute path={"/"}>
+      <UserRoute path={"/users"}>
         <Login />
       </UserRoute>
     ),
@@ -31,7 +52,7 @@ export const routes = createBrowserRouter([
   {
     path: "/signup",
     element: (
-      <UserRoute path={"/"}>
+      <UserRoute path={"/users"}>
         <Signup />
       </UserRoute>
     ),
