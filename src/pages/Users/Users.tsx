@@ -8,6 +8,7 @@ import DeleteModal from "../../components/Users/DeleteModal";
 import AddUserModal from "../../components/Users/AddUserModal";
 import { FaMinus } from "react-icons/fa";
 import { IoMdCheckmark } from "react-icons/io";
+import { BallTriangle } from "react-loader-spinner";
 
 const Users = () => {
   const [page, setPage] = useState(1);
@@ -27,7 +28,18 @@ const Users = () => {
   );
 
   if (isLoading || !isSuccess) {
-    return <h2>Loading...</h2>;
+    return (
+      <div className="flex justify-center mt-10">
+        <BallTriangle
+          height={100}
+          width={100}
+          radius={5}
+          color="#6941C6"
+          ariaLabel="ball-triangle-loading"
+          visible={true}
+        />
+      </div>
+    );
   }
 
   const handleAllChecked = () => {
