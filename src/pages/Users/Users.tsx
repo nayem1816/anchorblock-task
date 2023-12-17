@@ -1,7 +1,7 @@
 import { RiDeleteBinLine } from "react-icons/ri";
 import { LuPen } from "react-icons/lu";
 import { useGetAllUsersQuery } from "../../redux/features/users/userSlice";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { FiPlus } from "react-icons/fi";
 import { LuUploadCloud } from "react-icons/lu";
 import DeleteModal from "../../components/Users/DeleteModal";
