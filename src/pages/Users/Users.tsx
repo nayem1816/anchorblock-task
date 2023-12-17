@@ -1,12 +1,21 @@
 import { RiDeleteBinLine } from "react-icons/ri";
 import { LuPen } from "react-icons/lu";
 import { useGetAllUsersQuery } from "../../redux/features/users/userSlice";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { FiPlus } from "react-icons/fi";
 import { LuUploadCloud } from "react-icons/lu";
+import DeleteModal from "../../components/Users/DeleteModal";
+import AddUserModal from "../../components/Users/AddUserModal";
+import { FaMinus } from "react-icons/fa";
+import { IoMdCheckmark } from "react-icons/io";
 
 const Users = () => {
   const [page, setPage] = useState(1);
+  const [show, setShow] = useState(false);
+  const [showAddUser, setShowAddUser] = useState(false);
+  const [userId, setUserId] = useState(0);
+  const [allChecked, setAllChecked] = useState(false);
+  const [checkedUsers, setCheckedUsers] = useState<any[]>([]);
 
   const { data, isLoading, isSuccess } = useGetAllUsersQuery<any>(
     {
@@ -20,6 +29,29 @@ const Users = () => {
   if (isLoading || !isSuccess) {
     return <h2>Loading...</h2>;
   }
+
+  const handleAllChecked = () => {
+    if (allChecked) {
+      setAllChecked(false);
+      setCheckedUsers([]);
+    } else {
+      setAllChecked(true);
+      setCheckedUsers(data?.data?.map((user: any) => user.id));
+    }
+  };
+
+  const handleCheckMark = (id: number) => {
+    if (checkedUsers.includes(id)) {
+      setCheckedUsers(checkedUsers.filter((user) => user !== id));
+
+      if (checkedUsers.length === 1) {
+        setAllChecked(false);
+      }
+    } else {
+      setCheckedUsers([...checkedUsers, id]);
+    }
+  };
+
   return (
     <div className="max-w-6xl mx-auto px-4">
       <div className="flex justify-between mt-10 mb-6 items-center">
@@ -29,7 +61,11 @@ const Users = () => {
             <LuUploadCloud />
             Import
           </button>
-          <button className="bg-[#6941C6] text-white rounded-lg px-4 py-1 flex justify-center items-center gap-2">
+          <button
+            onClick={() => {
+              setShowAddUser(true);
+            }}
+            className="bg-[#6941C6] text-white rounded-lg px-4 py-1 flex justify-center items-center gap-2">
             <FiPlus />
             Add User
           </button>
@@ -46,14 +82,13 @@ const Users = () => {
                       <tr className="w-full">
                         <th scope="" className="p-4 w-[5%]">
                           <div className="flex items-center">
-                            <input
-                              id="checkbox-all"
-                              type="checkbox"
-                              className="w-4 h-4 text-blue-600 bg-gray-100 rounded border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
-                            />
-                            <label htmlFor="checkbox-all" className="sr-only">
-                              checkbox
-                            </label>
+                            <div
+                              onClick={() => handleAllChecked()}
+                              className="w-5 h-5 rounded-md bg-[#F9FAFB] border-2 border-[#7F56D9] flex justify-center items-center select-none">
+                              {allChecked ? (
+                                <FaMinus className="text-[#7F56D9] text-xs" />
+                              ) : null}
+                            </div>
                           </div>
                         </th>
                         <th
@@ -81,16 +116,13 @@ const Users = () => {
                         <tr key={i} className="">
                           <td className="p-4 w-[5%]">
                             <div className="flex items-center">
-                              <input
-                                id="checkbox-table-1"
-                                type="checkbox"
-                                className="w-4 h-4 text-blue-600 bg-gray-100 rounded border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
-                              />
-                              <label
-                                htmlFor="checkbox-table-1"
-                                className="sr-only">
-                                checkbox
-                              </label>
+                              <div
+                                onClick={() => handleCheckMark(user.id)}
+                                className="w-5 h-5 rounded-md bg-[#F9FAFB] border-2 border-[#7F56D9] flex justify-center items-center select-none">
+                                {checkedUsers.includes(user.id) ? (
+                                  <IoMdCheckmark className="text-[#7F56D9] text-lg" />
+                                ) : null}
+                              </div>
                             </div>
                           </td>
                           <td className="py-4 px-6 text-sm font-medium text-gray-900 whitespace-nowrap w-[35%]">
@@ -125,8 +157,19 @@ const Users = () => {
                           </td>
                           <td className="">
                             <div className="flex gap-5 justify-center">
-                              <RiDeleteBinLine className="text-gray-600 cursor-pointer text-lg" />
-                              <LuPen className="text-gray-600 cursor-pointer text-lg" />
+                              <RiDeleteBinLine
+                                onClick={() => {
+                                  setShow(true);
+                                  setUserId(user?.id);
+                                }}
+                                className="text-gray-600 cursor-pointer text-lg"
+                              />
+                              <LuPen
+                                onClick={() => {
+                                  setShowAddUser(true);
+                                }}
+                                className="text-gray-600 cursor-pointer text-lg"
+                              />
                             </div>
                           </td>
                         </tr>
@@ -175,6 +218,8 @@ const Users = () => {
           </div>
         </div>
       </div>
+      <DeleteModal show={show} setShow={setShow} userId={userId} />
+      <AddUserModal showAddUser={showAddUser} setShowAddUser={setShowAddUser} />
     </div>
   );
 };
