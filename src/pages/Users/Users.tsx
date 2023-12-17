@@ -6,7 +6,7 @@ import { FiPlus } from "react-icons/fi";
 import { LuUploadCloud } from "react-icons/lu";
 import DeleteModal from "../../components/Users/DeleteModal";
 import AddUserModal from "../../components/Users/AddUserModal";
-import { FaMinus } from "react-icons/fa";
+import { FaMinus, FaArrowDown } from "react-icons/fa";
 import { IoMdCheckmark } from "react-icons/io";
 import { BallTriangle } from "react-loader-spinner";
 
@@ -105,8 +105,9 @@ const Users = () => {
                         </th>
                         <th
                           scope=""
-                          className="py-3 px-6 text-sm font-medium tracking-wider text-left text-gray-500 w-[35%]">
+                          className="py-3 px-6 text-sm font-medium tracking-wider text-left text-gray-500 w-[35%] flex gap-2 items-center">
                           User Info
+                          <FaArrowDown className="text-xs" />
                         </th>
                         <th
                           scope=""

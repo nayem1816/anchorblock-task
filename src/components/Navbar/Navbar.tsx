@@ -76,23 +76,6 @@ const Navbar = () => {
                   src="https://flaticons.net/icon.php?slug_category=application&slug_icon=user-profile"
                   alt=""
                 />
-                <div
-                  className="hidden bg-white text-base z-50 list-none divide-y divide-gray-100 rounded shadow my-4"
-                  id="dropdown">
-                  <div className="px-4 py-3">
-                    <span className="block text-sm">Bonnie Green</span>
-                    <span className="block text-sm font-medium text-gray-900 truncate">
-                      name@flowbite.com
-                    </span>
-                  </div>
-                  <ul className="py-1" aria-labelledby="dropdown">
-                    <li>
-                      <button className="text-sm hover:bg-gray-100 text-gray-700 block px-4 py-2">
-                        Logout
-                      </button>
-                    </li>
-                  </ul>
-                </div>
               </div>
             </div>
           </div>
